@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: theme.fontSizes.subheading,
     fontWeight: theme.fontWeights.bold,
-    color: theme.colors.appBarText
+    color: theme.colors.lightText
   },
 })
 
