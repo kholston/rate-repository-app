@@ -1,4 +1,5 @@
 import { View, Pressable, StyleSheet } from 'react-native';
+import {object, string,} from 'yup';
 import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
@@ -31,6 +32,11 @@ const styles = StyleSheet.create({
   }
 })
 
+const validationSchema = object().shape({
+  username: string().required('Username is required'),
+  password: string().required('Password is required'),
+})
+
 const SignInForm = ({onSubmit}) => {
   return(
     <View style={styles.container}>
@@ -54,7 +60,7 @@ const SignIn = () => {
   }
 
   return(
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       {({handleSubmit}) => <SignInForm onSubmit={handleSubmit}/>}
     </Formik>
   );
