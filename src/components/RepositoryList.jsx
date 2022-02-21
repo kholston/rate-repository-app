@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
-
 const ItemSeparator = () => <View style={styles.separator}/>
 
 const renderItem = ({item}) => (
@@ -19,9 +17,9 @@ const renderItem = ({item}) => (
 
 const RepositoryList = () => {
 const {data, error, loading} = useQuery(GET_REPOSITORIES,{
-  fetchPolicy: 'cache-and-network'
+  fetchPolicy: 'cache-and-network',
 })
-  
+
 const repositoryNodes = !loading 
   ? data.repositories.edges.map(edge => edge.node)
   : [];
