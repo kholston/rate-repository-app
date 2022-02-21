@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { useQuery } from '@apollo/client';
+import { FlatList, Text, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import useRespositories from '../hooks/useRespositories';
+import { GET_REPOSITORIES } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   separator: {
@@ -18,12 +18,20 @@ const renderItem = ({item}) => (
 );
 
 const RepositoryList = () => {
-  const { repositories } = useRespositories()
-
-  const repositoryNodes = repositories 
-  ? repositories.edges.map(edge => edge.node)
+const {data, error, loading} = useQuery(GET_REPOSITORIES,{
+  fetchPolicy: 'cache-and-network'
+})
+  
+const repositoryNodes = !loading 
+  ? data.repositories.edges.map(edge => edge.node)
   : [];
 
+if(error){
+  console.log('Error: ', error)
+  return(
+    <Text>Problem Loading Repositories. Try again. . .</Text>
+  )
+}
   return (
     <FlatList
       data={repositoryNodes}
