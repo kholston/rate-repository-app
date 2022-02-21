@@ -1,9 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
 import { NativeRouter } from "react-router-native";
+import { ApolloProvider } from '@apollo/client'; 
 
 import Main from "./src/components/Main";
+import  createApolloClient from './src/utils/apolloClient';
 import theme from "./src/theme";
+
+const apolloClient = createApolloClient();
 
 const styles = StyleSheet.create({
   text: {
@@ -19,7 +23,9 @@ const App = () => {
   return (
     <>
       <NativeRouter>
-        <Main style={styles.text}/>
+        <ApolloProvider client={apolloClient}>
+          <Main style={styles.text}/>
+        </ApolloProvider>
       </NativeRouter>
       <StatusBar style="auto"/>
     </>
