@@ -6,6 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 import Main from "./src/components/Main";
 import  createApolloClient from './src/utils/apolloClient';
 import AuthStorage from "./src/utils/authStorage";
+import AuthStorageContext from "./src/contexts/AuthStorageContext";
 import theme from "./src/theme";
 
 const authStorage = new AuthStorage();
@@ -27,7 +28,9 @@ const App = () => {
     <>
       <NativeRouter>
         <ApolloProvider client={apolloClient}>
-          <Main style={styles.text}/>
+          <AuthStorageContext.Provider value={authStorage}>
+            <Main style={styles.text}/>
+          </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>
       <StatusBar style="auto"/>
