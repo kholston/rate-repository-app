@@ -5,9 +5,12 @@ import { ApolloProvider } from '@apollo/client';
 
 import Main from "./src/components/Main";
 import  createApolloClient from './src/utils/apolloClient';
+import AuthStorage from "./src/utils/authStorage";
 import theme from "./src/theme";
 
-const apolloClient = createApolloClient();
+const authStorage = new AuthStorage();
+
+const apolloClient = createApolloClient(authStorage);
 
 const styles = StyleSheet.create({
   text: {
