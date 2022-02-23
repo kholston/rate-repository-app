@@ -1,5 +1,5 @@
-import { View,Text, StyleSheet } from 'react-native';
-import { Link } from 'react-router-native';
+import { View,Text, StyleSheet, Pressable } from 'react-native';
+import { Link, useNavigate } from 'react-router-native';
 
 import theme from '../theme';
 
@@ -24,5 +24,23 @@ const AppBarTab = ({title, path}) => {
      </View>
   );
 };
+
+export const  AppBarTabWithFunction = ({title, afterPress, path}) => {
+  const navigate = useNavigate()
+
+  const tabPressed = async () => {
+    await afterPress()
+    navigate(path, {replace: true})
+  }
+  return(
+    <View style={styles.container}>
+     <Pressable
+      onPress={tabPressed}
+     >
+      <Text style={styles.title}>{title}</Text>
+     </Pressable>
+   </View>
+);
+}
 
 export default AppBarTab;
